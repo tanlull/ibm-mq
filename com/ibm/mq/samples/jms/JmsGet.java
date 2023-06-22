@@ -16,7 +16,7 @@
 
 package com.ibm.mq.samples.jms;
 
-
+import java.io.Console;
 import javax.jms.Destination;
 import javax.jms.JMSConsumer;
 import javax.jms.JMSContext;
@@ -48,7 +48,7 @@ import com.ibm.msg.client.wmq.WMQConstants;
  * JNDI in use: No
  *
  */
-public class JmsPut {
+public class JmsGet {
 
 	// System exit status value (assume unset value to be 1)
 	private static int status = 1;
@@ -69,6 +69,13 @@ public class JmsPut {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		// Sanity check main() arguments and warn user
+		if (args.length > 0) {
+                	System.out.println("\n!!!! WARNING: You have provided arguments to the Java main() function. JVM arguments (such as -Djavax.net.ssl.trustStore) must be passed before the main class or .jar you wish to run.\n\n");
+                	Console c = System.console();
+                	System.out.println("Press the Enter key to continue");
+                	c.readLine();
+                }
 
 		// Variables
 		JMSContext context = null;
@@ -99,12 +106,10 @@ public class JmsPut {
 			context = cf.createContext();
 			destination = context.createQueue("queue:///" + QUEUE_NAME);
 
-			long uniqueNumber = System.currentTimeMillis() % 1000;
-			TextMessage message = context.createTextMessage("Your lucky number today is " + uniqueNumber);
+			consumer = context.createConsumer(destination); // autoclosable
+			String receivedMessage = consumer.receiveBody(String.class, 15000); // in ms or 15 seconds
 
-			producer = context.createProducer();
-			producer.send(destination, message);
-			System.out.println("Sent message:\n" + message);
+			System.out.println("\nReceived message:\n" + receivedMessage);
 
                         context.close();
 
