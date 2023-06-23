@@ -60,7 +60,7 @@ public class JmsGetDebt {
 	private static final String QMGR = "MFEQMGR"; // Queue manager name
 	private static final String APP_USER = "mqm"; // User name that application uses to connect to MQ
 	private static final String APP_PASSWORD = "mqm@pwd"; // Password that the application uses to connect to MQ
-	private static final String QUEUE_NAME = "QUEUE.1"; // Queue that the application uses to put and get messages to and from
+	private static final String QUEUE_NAME = "PAYMENT_RES_QUEUE"; // Queue that the application uses to put and get messages to and from
 
 
 	/**
