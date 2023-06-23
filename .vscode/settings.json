@@ -1,0 +1,11 @@
+{
+    "java.project.sourcePaths": [
+        "."
+    ],
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "com.ibm.mq.allclient-9.3.0.0.jar",
+        "javax.jms-api-2.0.1.jar",
+        "json-20220320.jar"
+    ]
+}
