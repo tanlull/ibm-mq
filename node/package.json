@@ -32,9 +32,9 @@
   },
   "gypfile": true,
   "dependencies": {
+    "ibmmq": "^2.0.0",
     "node-addon-api": "^7.0.0",
-    "node-gyp-build": "^4.6.0",
-    "ibmmq": ">=0.7.0"
+    "node-gyp-build": "^4.6.0"
   },
   "engines": {
     "node": ">=16.0"
