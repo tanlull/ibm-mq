@@ -1,0 +1,142 @@
+{
+	"info": {
+		"_postman_id": "83ce0145-ed7c-459e-be78-c67310c42b49",
+		"name": "IBM_MQTT",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2405923"
+	},
+	"item": [
+		{
+			"name": "POST MEssage",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var moment = require('moment');\r",
+							"pm.environment.set('currentdate', moment().format((\"DD-MM-YYYY hh:mm:ss\")));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "app",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "passw0rd",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/plain;charset=utf-8",
+						"type": "text"
+					},
+					{
+						"key": "ibm-mq-rest-csrf-token",
+						"value": "blank",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "Time: {{currentdate}}"
+				},
+				"url": {
+					"raw": "https://localhost:9443/ibmmq/rest/v1/messaging/qmgr/QM1/queue/DEV.QUEUE.1/message",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "9443",
+					"path": [
+						"ibmmq",
+						"rest",
+						"v1",
+						"messaging",
+						"qmgr",
+						"QM1",
+						"queue",
+						"DEV.QUEUE.1",
+						"message"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST MEssage Copy",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "app",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "passw0rd",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "ibm-mq-rest-csrf-token",
+						"value": "blank",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:9443/ibmmq/rest/v1/messaging/qmgr/QM1/queue/DEV.QUEUE.1/message",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "9443",
+					"path": [
+						"ibmmq",
+						"rest",
+						"v1",
+						"messaging",
+						"qmgr",
+						"QM1",
+						"queue",
+						"DEV.QUEUE.1",
+						"message"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
