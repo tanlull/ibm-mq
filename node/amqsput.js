@@ -33,12 +33,13 @@
  */
 
 // Import the MQ package
+require('dotenv').config();
 var mq = require('ibmmq');
 var MQC = mq.MQC; // Want to refer to this export directly for simplicity
 
 // The queue manager and queue to be used. These can be overridden on command line.
-var qMgr = "QM1";
-var qName = "DEV.QUEUE.1";
+var qMgr = process.env.QMGR;
+var qName = process.env.QUEUE_NAME;
 
 function formatErr(err) {
   return  "MQ call failed in " + err.message;
@@ -68,6 +69,7 @@ function putMessage(hObj) {
       console.log(formatErr(err));
     } else {
       console.log("MsgId: " + toHexString(mqmd.MsgId));
+      console.log("Msg: " + msg);
       console.log("MQPUT successful");
     }
   });
@@ -111,8 +113,8 @@ cno.Options = MQC.MQCNO_NONE; // use MQCNO_CLIENT_BINDING to connect as client
 
 
   var csp = new mq.MQCSP();
-  csp.UserId = "app";
-  csp.Password = "passw0rd";
+  csp.UserId = process.env.APP_USER;
+  csp.Password = process.env.APP_PASSWORD;
   cno.SecurityParms = csp;
 
   // And use the MQCD to programatically connect as a client
@@ -120,8 +122,8 @@ cno.Options = MQC.MQCNO_NONE; // use MQCNO_CLIENT_BINDING to connect as client
 cno.Options |= MQC.MQCNO_CLIENT_BINDING;
 // And then fill in relevant fields for the MQCD
 var cd = new mq.MQCD();
-cd.ConnectionName = "localhost(1414)";
-cd.ChannelName = "DEV.APP.SVRCONN";
+cd.ConnectionName = `${process.env.HOST}(${process.env.PORT})`;
+cd.ChannelName = process.env.CHANNEL;
 // Make the MQCNO refer to the MQCD
 cno.ClientConn = cd;
 

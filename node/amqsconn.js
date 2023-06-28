@@ -30,11 +30,14 @@
  */
 
 // Import the MQ package
+require('dotenv').config();
+
 var mq = require('ibmmq');
+
 var MQC = mq.MQC; // Want to refer to this export directly for simplicity
 
 // The queue manager to be used.
-var qMgr = "QM1";
+var qMgr = process.env.QMGR;
 var hConn;
 
 function formatErr(err) {
@@ -61,8 +64,8 @@ var cno = new mq.MQCNO();
 
 // Add authentication via the MQCSP structure
 var csp = new mq.MQCSP();
-csp.UserId = "app";
-csp.Password = "passw0rd";
+csp.UserId = process.env.APP_USER;
+csp.Password = process.env.APP_PASSWORD;
 // Make the MQCNO refer to the MQCSP
 // This line allows use of the userid/password
 cno.SecurityParms = csp;
@@ -72,8 +75,8 @@ cno.SecurityParms = csp;
 cno.Options |= MQC.MQCNO_CLIENT_BINDING;
 // And then fill in relevant fields for the MQCD
 var cd = new mq.MQCD();
-cd.ConnectionName = "localhost(1414)";
-cd.ChannelName = "DEV.APP.SVRCONN";
+cd.ConnectionName = `${process.env.HOST}(${process.env.PORT})`;
+cd.ChannelName = process.env.CHANNEL;
 // Make the MQCNO refer to the MQCD
 cno.ClientConn = cd;
 

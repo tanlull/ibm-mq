@@ -32,6 +32,7 @@
   },
   "gypfile": true,
   "dependencies": {
+    "dotenv": "^16.3.1",
     "ibmmq": "^2.0.0",
     "node-addon-api": "^7.0.0",
     "node-gyp-build": "^4.6.0"
